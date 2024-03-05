@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Encrypter</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-light">
+
+    <div class="container mt-5">
+        <div class="text-center mb-3">
+            <img src="icon.png" alt="Logo">
+        </div>
+        <h2 class="text-center mb-4">Stateless Image Encrypter</h2>
+        <p class="text-center mb-4">by Varshit Rajput</p>
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card p-3">
+                    <label for="imageInput">Choose an image:</label>
+                    <input type="file" id="imageInput" accept=".png, .jpg, .jpeg" class="form-control mb-2">
+                    
+                    <label for="keyInputText">Enter Encryption Key:</label>
+                    <input type="text" id="keyInputText" class="form-control mb-2">
+                    
+                    <label for="positionInput">Enter position to append:</label>
+                    <input type="number" id="positionInput" placeholder="Default: Random" class="form-control mb-2">
+
+                    <button onclick="convertImageToText()" class="btn btn-primary">Encrypt Image</button>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card p-3">
+                    <label for="textFileInput">Choose encrypted file:</label>
+                    <input type="file" id="textFileInput" accept=".txt" class="form-control mb-2">
+                    
+                    <label for="keyOutputText">Enter Decryption Key:</label>
+                    <input type="text" id="keyOutputText" class="form-control mb-2">
+                    
+                   
+
+                    <button onclick="convertTextToImage()" class="btn btn-success">Decrypt Image</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="outputImageContainer" class="mt-4"></div>
+                <button onclick="downloadOutputImage()" class="btn btn-dark mt-3">Download Image</button>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script src="script.js"></script>
+</body>
+</html>
