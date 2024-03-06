@@ -12,15 +12,18 @@ function convertImageToText() {
     if (file && text) {
         if (position == ''){
             position = Math.floor(Math.random() * (100));
+            
         }
         const reader = new FileReader();
 
         reader.onload = function (e) {
             const binaryData = e.target.result.split(',')[1];
-            base64Image = binaryData;
-            const encrypted_text = binaryData.slice(0, position) + btoa(text) + binaryData.slice(position);
-
-            const textBlob = new Blob([encrypted_text], { type: 'text/plain' });
+            const encyptionKey = btoa(text).split("").map(a=> a.charCodeAt(0)).reduce((acc, curr) => acc + curr, 0)
+            const alphabets = binaryData.split("")
+            const asciiArray = alphabets.map(alphabet => alphabet.charCodeAt(0));
+            const xorArray = asciiArray.map(asc => asc ^ encyptionKey)
+        
+            const textBlob = new Blob([xorArray], { type: 'text/plain' });
             const textFileLink = document.createElement('a');
             textFileLink.href = URL.createObjectURL(textBlob);
             textFileLink.download = 'image_data.txt';
@@ -70,8 +73,12 @@ function convertTextToImage() {
 
         reader.onload = function (e) {
             const text = e.target.result;
-            const result = deletePattern(text, btoa(decryptText));
-            const binaryData = atob(result);
+            const textArray = text.split(",").map(Number);
+            const encyptionKey = btoa(decryptText).split("").map(a=> a.charCodeAt(0)).reduce((acc, curr) => acc + curr, 0)
+            const xorArray = textArray.map(xor => xor ^ encyptionKey)
+            const resultArray = xorArray.map(num => String.fromCharCode(num))
+            const binaryData = atob(resultArray.join(""))
+            console.log(binaryData)
 
             const blob = new Blob([new Uint8Array(binaryData.length).map((_, i) => binaryData.charCodeAt(i))], { type: 'image/png' });
             const url = URL.createObjectURL(blob);
